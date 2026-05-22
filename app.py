@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-
+import math
 app = Flask(__name__)
 
 
@@ -10,7 +10,20 @@ def euler_method(f, x0, y0, h, n):
     y = y0
 
     for i in range(n):
-        slope = eval(f)
+        slope = eval(
+    f,
+    {"__builtins__": None},
+    {
+        "x": x,
+        "y": y,
+        "sin": math.sin,
+        "cos": math.cos,
+        "tan": math.tan,
+        "exp": math.exp,
+        "log": math.log,
+        "sqrt": math.sqrt
+    }
+)
         y_next = y + h * slope
         x_next = x + h
 
@@ -50,4 +63,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
