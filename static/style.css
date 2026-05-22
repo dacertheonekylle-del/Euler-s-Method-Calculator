@@ -5,53 +5,139 @@
     font-family:'Segoe UI',sans-serif;
 }
 
+/* BODY WITH ANIMATED BACKGROUND */
+
 body{
-    background:linear-gradient(to right,#eef2ff,#f8fbff);
     min-height:100vh;
     padding:40px;
     color:#222;
+    overflow-x:hidden;
+    position:relative;
+
+    background:linear-gradient(
+        -45deg,
+        #3b82f6,
+        #8b5cf6,
+        #06b6d4,
+        #2563eb
+    );
+
+    background-size:400% 400%;
+    animation:gradientBG 15s ease infinite;
+
+    transition:0.3s ease;
 }
+
+/* GLOWING EFFECTS */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:rgba(255,255,255,0.15);
+    border-radius:50%;
+    top:-150px;
+    left:-150px;
+    filter:blur(80px);
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:400px;
+    height:400px;
+    background:rgba(255,255,255,0.12);
+    border-radius:50%;
+    bottom:-120px;
+    right:-120px;
+    filter:blur(80px);
+    z-index:-1;
+}
+
+/* DARK MODE */
+
+body.dark{
+    background:linear-gradient(
+        -45deg,
+        #020617,
+        #0f172a,
+        #111827,
+        #1e293b
+    );
+
+    background-size:400% 400%;
+    animation:gradientBG 15s ease infinite;
+    color:#e5e7eb;
+}
+
+/* CONTAINER */
 
 .container{
     max-width:1100px;
     margin:auto;
 }
 
+/* HEADINGS */
+
 h1{
     text-align:center;
     font-size:52px;
     margin-bottom:15px;
-    color:#1f3b73;
+    color:white;
     font-weight:700;
+    text-shadow:0 4px 10px rgba(0,0,0,0.2);
 }
 
 .description{
     text-align:center;
-    color:#666;
+    color:#f1f5f9;
     margin-bottom:40px;
     font-size:18px;
 }
 
+/* CARDS */
+
 .card,
-.table-card{
-    background:white;
+.table-card,
+.example-card{
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
     padding:35px;
     border-radius:22px;
     margin-bottom:30px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+    border:1px solid rgba(255,255,255,0.2);
+
     transition:0.3s;
 }
 
+body.dark .card,
+body.dark .table-card,
+body.dark .example-card{
+    background:rgba(30,41,59,0.65);
+}
+
 .card:hover,
-.table-card:hover{
+.table-card:hover,
+.example-card:hover{
     transform:translateY(-4px);
 }
+
+/* GRID */
 
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:20px;
 }
+
+/* INPUTS */
 
 .input-group{
     margin-bottom:22px;
@@ -61,44 +147,91 @@ h1{
     display:block;
     margin-bottom:8px;
     font-weight:600;
-    color:#1f3b73;
+    color:white;
 }
 
 .input-group input{
     width:100%;
     padding:14px;
-    border:1px solid #d6d6d6;
+    border:none;
     border-radius:14px;
     font-size:15px;
-    transition:0.3s;
     outline:none;
+    transition:0.3s;
 }
 
 .input-group input:focus{
-    border-color:#2f5bb7;
-    box-shadow:0 0 8px rgba(47,91,183,0.2);
+    box-shadow:0 0 10px rgba(255,255,255,0.4);
 }
 
+body.dark input{
+    background:#0f172a;
+    color:white;
+}
+
+/* BUTTONS */
+
 button{
+    transition:0.3s;
+}
+
+.calculate-btn{
     width:100%;
     padding:16px;
     border:none;
     border-radius:14px;
-    background:linear-gradient(to right,#1f3b73,#2f5bb7);
+
+    background:linear-gradient(
+        to right,
+        #1e3a8a,
+        #2563eb
+    );
+
     color:white;
     font-size:17px;
     font-weight:600;
     cursor:pointer;
-    transition:0.3s;
 }
 
-button:hover{
+.calculate-btn:hover{
     transform:scale(1.02);
-    opacity:0.95;
 }
+
+/* TABS */
+
+.tabs{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+}
+
+.tab-btn{
+    width:auto;
+    padding:14px 24px;
+    border:none;
+    border-radius:14px;
+
+    background:rgba(255,255,255,0.2);
+    color:white;
+
+    font-weight:600;
+    cursor:pointer;
+    font-size:16px;
+
+    backdrop-filter:blur(10px);
+}
+
+.tab-btn.active{
+    background:white;
+    color:#2563eb;
+}
+
+/* TEXT */
 
 h2{
-    color:#1f3b73;
+    color:white;
     margin-bottom:20px;
     font-size:30px;
 }
@@ -106,35 +239,30 @@ h2{
 h3{
     margin-top:20px;
     margin-bottom:10px;
-    color:#2f5bb7;
+    color:#dbeafe;
 }
 
-p{
-    margin-bottom:14px;
+p,
+li{
+    color:#f8fafc;
     line-height:1.8;
-    color:#444;
 }
+
+/* FORMULAS */
 
 .formula{
-    background:#eef3ff;
+    background:rgba(255,255,255,0.2);
     padding:18px;
     border-radius:16px;
     margin:20px 0;
+
     text-align:center;
     font-size:28px;
     font-weight:bold;
-    color:#1f3b73;
+    color:white;
 }
 
-ul{
-    margin-left:25px;
-    margin-top:10px;
-}
-
-li{
-    margin-bottom:10px;
-    line-height:1.6;
-}
+/* TABLE */
 
 .table-card{
     overflow-x:auto;
@@ -148,21 +276,86 @@ table{
 }
 
 table th{
-    background:#1f3b73;
+    background:rgba(255,255,255,0.25);
     color:white;
     padding:16px;
-    font-size:16px;
 }
 
 table td{
     padding:15px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid rgba(255,255,255,0.15);
     text-align:center;
+    color:white;
 }
 
 table tr:hover{
-    background:#f5f8ff;
+    background:rgba(255,255,255,0.08);
 }
+
+/* EXAMPLES */
+
+.example-grid{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.example-card{
+    flex:1;
+    min-width:300px;
+}
+
+/* TAB CONTENT */
+
+.tab-content{
+    display:none;
+}
+
+.active-tab{
+    display:block;
+}
+
+/* THEME BUTTON */
+
+.theme-toggle{
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    padding:12px 16px;
+    border:none;
+    border-radius:12px;
+
+    background:rgba(255,255,255,0.2);
+    color:white;
+
+    font-weight:bold;
+    cursor:pointer;
+
+    backdrop-filter:blur(10px);
+
+    z-index:999;
+}
+
+/* ANIMATION */
+
+@keyframes gradientBG{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+/* MOBILE */
 
 @media(max-width:768px){
 
@@ -175,7 +368,8 @@ table tr:hover{
     }
 
     .card,
-    .table-card{
+    .table-card,
+    .example-card{
         padding:25px;
     }
 
